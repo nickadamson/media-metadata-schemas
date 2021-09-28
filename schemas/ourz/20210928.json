@@ -1,0 +1,196 @@
+{
+  "description": "This schema describes version 20210928 of the OURZ Metadata Standard",
+  "title": "Ourz20210928",
+  "$id": "https://ourz.network/schemas/OurzMetadata.json",
+  "$defs": {
+    "attribute": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "type": "string",
+          "description": "The name of the trait"
+        },
+        "value": {
+          "type": ["string", "number", "boolean"],
+          "description": "The value of the trait"
+        },
+        "display_type": {
+          "type": "string",
+          "description": "A field indicating how the `value` data should be displayed. Defaults to 'string'"
+        }
+      }
+    },
+    "contributor": {
+      "type": "object",
+      "required": ["account", "allocation"],
+      "properties": {
+        "account": {
+          "description": "Contributor/SplitRecipient's Ethereum wallet address converted to lowercase",
+          "examples": ["0xabc0000000000000000000000000000000000def"],
+          "type": "string"
+        },
+        "name": {
+          "description": "Contributor/SplitRecipient's name or alias",
+          "examples": ["Vitalik Buterin"],
+          "type": "string"
+        },
+        "role": {
+          "description": "Contributor/SplitRecipient's role in the creation of the NFT",
+          "examples": ["Director"],
+          "type": "string"
+        },
+        "shares": {
+          "description": "Contributor/SplitRecipient's allotted shares out of 100;",
+          "examples": ["00.000001", "99.999999"],
+          "type": "string"
+        },
+        "allocation": {
+          "description": "Shares represented as a BigInt; (shares * 1,000,000)",
+          "examples": ["000000001", "100000000"],
+          "type": "string"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name or title of the Media",
+      "examples": ["Our Masterpiece"],
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the media",
+      "examples": ["This is the result of collaboration."],
+      "type": "string"
+    },
+    "collection_title": {
+      "decription": "The title of the collection this NFT belongs to, if any",
+      "examples": ["Studio Portraits 2021"],
+      "type": "string"
+    },
+    "mimeType": {
+      "description": "The mimeType of the media",
+      "examples": ["text/plain"],
+      "type": "string"
+    },
+    "category": {
+      "description": "The genre and medium of the cryptomedia, if applicable",
+      "type": "object",
+      "properties": {
+        "genre": {
+          "description": "Genre of the cryptomedia",
+          "examples": ["Painting", "Software", "Photography", "Performance Art", "Sculpture"],
+          "type": "string"
+        },
+        "medium": {
+          "description": "The material and/or tools used by the creator(s) to create the cryptomedia",
+          "examples": ["Acrylic on Canvas", "Digital", "35mm Film", "Play", "Mixed Media"],
+          "type": "string"
+        }
+      }
+    }, 
+    "split_recipients": {
+      "type": "array",
+      "description": "Royalty information for the Split Contract that minted the cryptomedia",
+      "items": {
+        "$ref": "#/$defs/contributor"
+      }
+    },
+    "version": {
+      "description": "This property defines the calendar version of the schema so that consumers can correctly parse the json",
+      "examples": ["ourz-20210928"],
+      "type": "string"
+    },
+    "image": {
+      "description": "An optional preview image URL for the media",
+      "examples": ["https://ipfs.io/ipfs/bafkreig4qxcms7msakiafuapwensj2lamszmdbbukqxxcpfesvgd2jzswa"],
+      "type": "string"
+    },
+    "external_url": {
+      "description": "This property defines an optional external URL that can reference a webpage or external asset for the NFT",
+      "examples": ["https://mintgate.io/whitelisted-content"],
+      "type": "string"
+    },
+    "animation_url": {
+      "description": "A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4, M4V, OGV, and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA. Animation_url also supports HTML pages, allowing you to build rich experiences using JavaScript canvas, WebGL, and more. Access to browser extensions is not supported",
+      "type": "string"
+    },
+    "copyright_info": {
+      "type": "object",
+      "description": "Fields pertaining to copyright & licensing, optional",
+      "properties": {
+        "copyright_holder": {
+          "description": "The party (organization or person) holding the legal copyright to the cryptomedia.",
+          "examples": ["Big Picture Studios"],
+          "type": "string"
+        },
+        "copyright_year": {
+          "description": "The year during which the claimed copyright for the cryptomedia was first asserted.",
+          "examples": ["1999"],
+          "type": "string"
+        },
+        "copyright_notice": {
+          "description": "Text of a notice appropriate for describing the copyright aspects of this cryptomedia, ideally indicating the owner of the copyright for the media.",
+          "examples": [
+            "Exclusive right of commercial use - TA-ECU - https://en.tokenart.org/licence \n The commercial use is Exclusively represented by one or more NFT that creator (Big Picture Studios) creates and only the NFT owner can exploit it. This means that once creator’s NFT is sold the creator prevent himself to use his artwork for commercial use. \n It can be mixed with : CC-BY-NC ; CC-BY-NC-SA ; CC-BY-NC-ND"
+          ],
+          "type": "string"
+        },
+        "license": {
+          "description": "A license document that applies to the cryptomedia, typically indicated by URL.",
+          "examples": ["https://www.nftlicense.org/", "https://github.com/interNFT/nft-rfc/blob/main/nft-rfc-005.md", "https://en.tokenart.org/licence"],
+          "type": "string"
+        }
+      }
+    },
+    "is_family_friendly": {
+      "description": "Indicates whether this cryptomedia is family friendly.",
+      "examples": [true, false],
+      "type": "boolean"
+    },
+    "attributes": {
+      "type": "array",
+      "description": "This property defines any additional attributes for the item; see https://schema.org/CreativeWork for ideas",
+      "items": {
+        "$ref": "#/$defs/attribute"
+      },
+      "examples": [ 
+        { "recorded_at": "Coachella 2020" },
+        { "duration": "00:03:18" },
+        { "date_created": "timeframe: 'c. 2014-2018', specific date: '2021-09-28', see ISO-6801" },
+        { "trailer": "www.vimeo.com/trailer" },
+        { "dimensions": "4x5 Portrait" }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "examples": [ 
+    {
+      "name": "Our Masterpiece",
+      "description": "Because art is collaborative",
+      "collection_title": "OURZ Genesis Drop",
+      "mimeType": "application/zip",
+      "category": {
+        "genre": "Software",
+        "medium": "Digital"
+      },
+      "split_recipients": [
+        { "account": "0xabc0000000000000000000000000000000000def", "name": "V. B.", "allocation": "50000000", "role": "Art", "shares": "50"},
+        { "account": "0xfed0000000000000000000000000000000000cba", "name": "S. N.", "allocation": "50000000", "role": "Commerce", "shares": "50"}
+      ],
+      "version": "ourz-20210928",
+      "external_url": "https://github.com/ourz-network/our-interface",
+      "copyright_info": { "license": "https://www.gnu.org/licenses/agpl-3.0.en.html" },
+      "is_family_friendly": true
+    }
+  ],
+  "required": [
+    "name",
+    "description",
+    "mimeType",
+    "split_recipients",
+    "version"
+  ]
+}
