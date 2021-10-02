@@ -76,21 +76,15 @@
       "type": "string"
     },
     "category": {
-      "description": "The genre and medium of the cryptomedia, if applicable",
-      "type": "object",
-      "properties": {
-        "genre": {
-          "description": "Genre of the cryptomedia",
-          "examples": ["Painting", "Software", "Photography", "Performance Art", "Sculpture"],
-          "type": "string"
-        },
-        "medium": {
-          "description": "The material and/or tools used by the creator(s) to create the cryptomedia",
-          "examples": ["Acrylic on Canvas", "Digital", "35mm Film", "Play", "Mixed Media"],
-          "type": "string"
-        }
-      }
-    }, 
+      "description": "The category/genre/kind of cryptomedia",
+      "examples": ["Album", "Photograph", "Sculpture", "Performance Art", "Painting"],
+      "type": "string"
+    },
+    "medium": {
+      "description": "The material and/or tools used by the creator(s) to create the cryptomedia",
+      "examples": ["Keyboard", "35mm Film", "Mixed Media", "Play", "Acrylic on Canvas"],
+      "type": "string"
+    },
     "split_recipients": {
       "type": "array",
       "description": "Royalty information for the Split Contract that minted the cryptomedia",
@@ -145,8 +139,8 @@
         }
       }
     },
-    "is_family_friendly": {
-      "description": "Indicates whether this cryptomedia is family friendly.",
+    "explicit_content": {
+      "description": "Indicates whether this cryptomedia contains explicit content.",
       "examples": [true, false],
       "type": "boolean"
     },
@@ -172,9 +166,9 @@
       "description": "Because art is collaborative",
       "collection_title": "OURZ Genesis Drop",
       "mimeType": "application/zip",
-      "category": {
-        "genre": "Software",
-        "medium": "Digital"
+      "media_details": {
+        "category": "Software",
+        "medium": "Digital/Electronic"
       },
       "split_recipients": [
         { "account": "0xabc0000000000000000000000000000000000def", "name": "V. B.", "allocation": "50000000", "role": "Art", "shares": "50"},
@@ -183,7 +177,7 @@
       "version": "ourz-20210928",
       "external_url": "https://github.com/ourz-network/our-interface",
       "copyright_info": { "license": "https://www.gnu.org/licenses/agpl-3.0.en.html" },
-      "is_family_friendly": true
+      "explicit_content": false
     }
   ],
   "required": [
